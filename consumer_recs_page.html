@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="d3-tablesort/d3-tablesort.css">
+  <script src="d3-tablesort/d3-tablesort.js"></script>
+</head>
+
+<div id="goods_count_table"></div>
+<div id="goods_recs_table"></div>
+<div id="random_consumers_table"></div>
+
+
+<body>
+  <script type="text/javascript">
+    function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    discount_card_id = getParameterByName('discount_card_id')
+    d3.json("hard_query?query='select * from test.consumer_top_goods where discount_card_id='" + discount_card_id + "' order by cnt desc'", function(json) {
+      table_id = "#goods_count_table";
+      array_of_columns = [];
+      for (var i = 0; i < json.col_names.length; i++) {
+        n = json.col_names[i];
+        s = (json.col_types[i] == 'numeric') ? TableSort.numeric : TableSort.alphabetic;
+        array_of_columns.push({
+          text: n, sort: s, sort_column: true
+        })
+      }
+      array_of_data = json.data;
+      dimensions = { width: '800px', height: '400px' };
+      tbl_srt = TableSort(
+          table_id,
+          "Consumer goods count",
+          array_of_columns,
+          array_of_data,
+          dimensions
+          );
+      x = 1
+
+    });
+
+    d3.json("hard_query?query='select * from test.consumer_top_recs where discount_card_id='" + discount_card_id + "' order by rank desc '", function(json) {
+      table_id = "#goods_recs_table";
+      array_of_columns = [];
+      for (var i = 0; i < json.col_names.length; i++) {
+        n = json.col_names[i];
+        s = (json.col_types[i] == 'numeric') ? TableSort.numeric : TableSort.alphabetic;
+        array_of_columns.push({
+          text: n, sort: s, sort_column: true
+        })
+      }
+      array_of_data = json.data;
+      dimensions = { width: '800px', height: '400px' };
+      tbl_srt = TableSort(
+          table_id,
+          "Consumer goods recs",
+          array_of_columns,
+          array_of_data,
+          dimensions
+          );
+      x = 1
+
+    });
+
+    d3.json("hard_query?query='select * from test.consumer_count order by rand() limit 20'", function(json) {
+      table_id = "#random_consumers_table";
+      array_of_columns = [];
+      for (var i = 0; i < json.col_names.length; i++) {
+        n = json.col_names[i];
+        s = (json.col_types[i] == 'numeric') ? TableSort.numeric : TableSort.alphabetic;
+        array_of_columns.push({
+          text: n, sort: s, sort_column: true
+        })
+      }
+      array_of_data = json.data;
+      dimensions = { width: '400px', height: '400px' };
+      tbl_srt = TableSort(
+          table_id,
+          "20 random consumers",
+          array_of_columns,
+          array_of_data,
+          dimensions
+          );
+      x = 1
+
+    });
+  </script>
+</body>
+</html>

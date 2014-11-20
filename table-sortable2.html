@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="d3-tablesort/d3-tablesort.css">
+  <script src="d3-tablesort/d3-tablesort.js"></script>
+</head>
+
+<div id="my_table"></div>
+
+<body>
+  <script type="text/javascript">
+
+    d3.json("consumer_recs.json", function(json) {
+      table_id = "#my_table";
+      array_of_columns = [];
+      for (var i = 0; i < json.col_names.length; i++) {
+        n = json.col_names[i];
+        s = (json.col_types[i] == 'numeric') ? TableSort.numeric : TableSort.alphabetic;
+        array_of_columns.push({
+          text: n, sort: s, sort_column: true
+        })
+      }
+      array_of_data = json.data;
+      dimensions = { width: '400px', height: '700px' };
+      tbl_srt = TableSort(
+          table_id,
+          table_name,
+          array_of_columns,
+          array_of_data,
+          dimensions
+          );
+      x = 1
+
+    })
+  </script>
+</body>
+</html>
