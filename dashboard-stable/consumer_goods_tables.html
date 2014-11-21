@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <!--<link href="css/plugins/dataTables.bootstrap.css" rel="stylesheet">-->
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="jq-datatables/jquery.dataTables.css" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <script type="text/javascript" src="d3/d3.js"></script>
+    <script type="text/javascript" src="d3/d3.layout.js"></script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <!--<li>-->
+                            <!--<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>-->
+                            <!--<ul class="nav nav-second-level">-->
+                                <!--<li>-->
+                                    <!--<a href="flot.html">Flot Charts</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="morris.html">Morris.js Charts</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
+                        <!--</li>-->
+                   <li>
+                            <a class="active" id="consumer_goods_tables_link" href="consumer_goods_tables.html"><i class="fa fa-table fa-fw"></i> Consumer goods tables</a>
+                        </li>
+                        <li>
+                            <a class="active" id="consumer_cheques_link" href="consumer_cheques.html"><i class="fa fa-table fa-fw"></i> Consumer cheques</a>
+                        </li>
+                        <!--<li>-->
+                            <!--<a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>-->
+                            <!--<ul class="nav nav-second-level">-->
+                                <!--<li>-->
+                                    <!--<a href="panels-wells.html">Panels and Wells</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="buttons.html">Buttons</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="notifications.html">Notifications</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="typography.html">Typography</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="grid.html">Grid</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>-->
+                            <!--<ul class="nav nav-second-level">-->
+                                <!--<li>-->
+                                    <!--<a href="#">Second Level Item</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#">Second Level Item</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="#">Third Level <span class="fa arrow"></span></a>-->
+                                    <!--<ul class="nav nav-third-level">-->
+                                        <!--<li>-->
+                                            <!--<a href="#">Third Level Item</a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<a href="#">Third Level Item</a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<a href="#">Third Level Item</a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<a href="#">Third Level Item</a>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                    <!--&lt;!&ndash; /.nav-third-level &ndash;&gt;-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>-->
+                            <!--<ul class="nav nav-second-level">-->
+                                <!--<li>-->
+                                    <!--<a href="blank.html">Blank Page</a>-->
+                                <!--</li>-->
+                                <!--<li>-->
+                                    <!--<a href="login.html">Login Page</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Tables</h3>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Consumer goods counts
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive" id="table-consumer-goods-count">
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Consumer goods recs
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive" id="table-consumer-goods-recs">
+                            </div>
+                            <!-- /.table-responsive -->
+                            <!--<div class="well">-->
+                                <!--<h4>DataTables Usage Information</h4>-->
+                                <!--<p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>-->
+                                <!--<a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>-->
+                            <!--</div>-->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Random discount cards
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive" id="table-random-discount-cards">
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').dataTable();
+    });
+    </script>
+
+<script type="text/javascript">
+    var isArray = Array.isArray || function(arr) {
+          return toString.call(arr) == '[object Array]';
+    };
+    function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    function fill_table(div_id, json_source) {
+     //getParameterByName('discount_card_id')
+      d3.json(json_source, function(json) {
+        array_of_columns = [];
+        for (var i = 0; i < json.col_names.length; i++) {
+          n = json.col_names[i];
+          array_of_columns.push({
+            text: n, sort_column: true
+          })
+        }
+        array_of_data = json.data;
+
+        table = d3.select("#" + div_id).html(null)
+          .append("table")
+          .attr('class', 'table table-striped table-bordered table-hover')
+          .attr('id', "tbl-" + div_id)
+          .attr('class', 'display')
+          .attr('width', '100%')
+          .attr('cellspacing', '0')
+
+        ;
+        table.append('thead').append("tr").selectAll("th").data(array_of_columns).enter()
+              .append("th")
+              .text(function (column) { return column.text; })
+        ;
+        tbody = table.append("tbody")
+        ;
+        var i = 1;
+        rows = tbody.selectAll("tr").
+          data(array_of_data).
+          enter().
+          append("tr").
+          classed({'gradeA odd': i % 2 == 0, 'gradeA even': i++ % 2 == 0})
+        ;
+        rows.selectAll("td")
+              .data(function (d) { return isArray(d)? d: d.data; }).enter()
+              .append("td")
+              .text(function (d) { return d; })
+              .attr('class', function (d, i) { return 'td-' + array_of_columns[i].text; })
+        ;
+  //      tbl_srt = TableSort(
+  //          table_id,
+  //          "Consumer goods count",
+  //          array_of_columns,
+  //          array_of_data,
+  //          dimensions
+  //          );
+        x = 1
+        var dtable = $("#tbl-" + div_id).DataTable({
+            "pagingType": "simple"
+        });
+      });
+    }
+    function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    discount_card_id = getParameterByName('discount_card_id')
+    //discount_card_id = '2775023854760'
+    fill_table('table-consumer-goods-count', "hard_query?query='select good_count, good_id, good_name, good_group, avg_cost_quant as approx_cost, last_date from test.consumer_goods_count where discount_card_id='" + discount_card_id + "' '");
+    fill_table('table-consumer-goods-recs', "hard_query?query='select rank as good_rank, good_id, good_name, good_group, avg_cost_quant as approx_cost, algorithm from test.consumer_goods_recs where discount_card_id='" + discount_card_id + "' '");
+    fill_table('table-random-discount-cards', "hard_query?query='select * from test.consumer_count order by rand() limit 20 ' ");
+
+    d3.select('.page-header').text("Consumer (" + discount_card_id + ") goods recommendations and counts");
+    d3.select('#consumer_goods_tables_link').attr('href', 'consumer_goods_tables.html?discount_card_id=' + discount_card_id);
+    d3.select('#consumer_cheques_link').attr('href', 'consumer_cheques.html?discount_card_id=' + discount_card_id);
+
+    d3.selectAll('.td-discount_card_id')
+        .append("a")
+        .attr('href', function(d) { return location.protocol + '//' + location.host + location.pathname + '?discount_card_id=' + d; })
+        .text(function (d) { return d; });
+//    d3.selectAll('.td-discount_card_id').
+//
+//      append("a")
+  </script>
+  <script type="text/javascript">
+  </script>
+
+</body>
+
+</html>
