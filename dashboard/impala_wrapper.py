@@ -56,7 +56,7 @@ def get_consumer_cheques(discount_card_id=_discount_card_id):
     results = [[str(r) for r in row] for row in results]
     conn.close()
 
-    root_Node = id_name_Node('discount_card_id=' + discount_card_id)
+    root_Node = id_name_Node('d=' + discount_card_id)
     date_node_dict = {}
 
     for row in results:
@@ -76,7 +76,7 @@ def get_consumer_cheques(discount_card_id=_discount_card_id):
         ]
         date_node.children.append(good_node)
 
-    root_Node.children += sorted(date_node_dict.values(), key=lambda dn: dn.name)
+    root_Node.children += sorted(date_node_dict.values(), cmp=lambda x, y: - cmp(x, y))
     return json.dumps(_to_json(root_Node))
 
 
