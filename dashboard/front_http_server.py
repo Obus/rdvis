@@ -26,6 +26,10 @@ class MyHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             params_string = self.path.replace("/consumer_recs?", "")
             param_dict = http_params_to_dict(params_string)
             self.wfile.write(impala_wrapper.get_consumer_basket(discount_card_id=param_dict['discount_card_id']))
+        elif self.path.startswith("/consumer_date_purchases?"):
+            params_string = self.path.replace("/consumer_date_purchases?", "")
+            param_dict = http_params_to_dict(params_string)
+            self.wfile.write(impala_wrapper.get_consumer_cheques(discount_card_id=param_dict['discount_card_id']))
         elif self.path.startswith("/hard_query?"):
             params_string = self.path.replace("/hard_query?", "")
             # param_dict = http_params_to_dict(params_string)
