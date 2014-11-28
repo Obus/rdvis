@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 __author__ = 'senov'
 import pymssql
 import json
@@ -19,17 +21,26 @@ class FlatNode(object):
 
 
 def fix_s(s):
+    # if u'СТМ' in s or u'СИ' in s:
+    #     print s
     return s[1:-1]
+
 
 def get_flat_tree(conn, table_name):
     flat_nodes = []
     cursor = conn.cursor()
-    cursor.execute("select id, parent_id, name from %s" % table_name)
+    cursor.execute("select id, id_parent, name from %s" % table_name)
     row = cursor.fetchone()
+    cnt = 0
     while row:
         flat_nodes.append(FlatNode(fix_s(row[0]), fix_s(row[1]), fix_s(row[2])))
+        # if '286740' in row[0]:
+        #     print ", ".join(row)
+        # print row[2]
         row = cursor.fetchone()
+        cnt += 1
     conn.close()
+    # print cnt
     return flat_nodes
 
 
@@ -68,7 +79,7 @@ def get_tree(table=_TABLE, database=_DATABASE, server=_SERVER_PORT, user=_USER, 
     children = set(r.id for r in flat_nodes)
     non_children = parents - children
     if len(non_children) != 1:
-        raise BaseException("Exactly on non-children id expected (root), but got: " + ",".join(non_children))
+        raise BaseException("Exactly one non-children id expected (root), but got: " + ", ".join(non_children))
     root_id = next(iter(non_children))
 
     tree = Node(root_id, root_id)
