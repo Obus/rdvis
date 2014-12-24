@@ -80,6 +80,37 @@ def get_consumer_cheques(discount_card_id=_discount_card_id):
     return json.dumps(_to_json(root_Node))
 
 
+def get_consumer_group_cheques(discount_card_id=_discount_card_id):
+    conn = connect(host='node1.allende.bigkore.com', port=21050)
+    cursor = conn.cursor()
+    query = "select consumer_id, date1, group23, quantity from test.consumer_date_purchases_group23 where consumer_id='%s'" % (discount_card_id)
+    print query
+    cursor.execute(query)
+    results = cursor.fetchall()
+    results = [[str(r) for r in row] for row in results]
+    conn.close()
+
+    root_Node = id_name_Node('d=' + discount_card_id)
+    date_node_dict = {}
+
+    for row in results:
+        date = row[1]
+        date_node = None
+        if date in date_node_dict:
+            date_node = date_node_dict[date]
+        else:
+            date_node = id_name_Node('date=' + date)
+            date_node_dict[date] = date_node
+        good_node = id_name_Node('' + row[2])
+        good_node.children = [
+            id_name_Node('quantity=' + row[3]),
+        ]
+        date_node.children.append(good_node)
+
+    root_Node.children += sorted(date_node_dict.values(), cmp=lambda x, y: - cmp(x.name, y.name))
+    return json.dumps(_to_json(root_Node))
+
+
 def id_name_Node(name):
     return Node(name, name)
 

@@ -88,6 +88,12 @@
                         <li>
                             <a class="active" id="consumer_cheques_link" href="consumer_cheques.html"><i class="fa fa-table fa-fw"></i> Consumer cheques</a>
                         </li>
+                        <li>
+                            <a class="active" id="consumer_groups_link" href="consumer_groups.html"><i class="fa fa-table fa-fw"></i> Consumer groups recs</a>
+                        </li>
+                        <li>
+                            <a class="active" id="consumer_S_LG_recs" href="consumer_S_LG_recs.html"><i class="fa fa-table fa-fw"></i> Consumer Simplate and Printer recs</a>
+                        </li>
                         <!--<li>-->
                             <!--<a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>-->
                         <!--</li>-->
@@ -264,15 +270,14 @@
     var isArray = Array.isArray || function(arr) {
           return toString.call(arr) == '[object Array]';
     };
-    function getParameterByName(name) {
-      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-          results = regex.exec(location.search);
-      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-    function fill_table(div_id, json_source) {
-     //getParameterByName('discount_card_id')
+
+    function fill_table(div_id, json_source, sort_order) {
       d3.json(json_source, function(json) {
+
+        if ( typeof sort_order === 'undefined' ) {
+          sort_order = [0, "desc"];
+        }
+
         array_of_columns = [];
         for (var i = 0; i < json.col_names.length; i++) {
           n = json.col_names[i];
@@ -309,16 +314,9 @@
               .append("td")
               .text(function (d) { return d; })
         ;
-  //      tbl_srt = TableSort(
-  //          table_id,
-  //          "Consumer goods count",
-  //          array_of_columns,
-  //          array_of_data,
-  //          dimensions
-  //          );
-        x = 1
         var dtable = $("#tbl-" + div_id).DataTable({
-            "pagingType": "simple"
+            "pagingType": "simple",
+            "order" : sort_order
         });
         dtable.column(0).sort(function(x, y) {
           var c = 0
@@ -330,10 +328,12 @@
           }
           return c;
         });
-        d3.select('.page-header').text("Consumer (" + discount_card_id + ") goods recommendations and counts")
+        d3.select('.page-header').text("Consumer (" + discount_card_id + ") goods recs and counts");
         d3.select('#consumer_goods_tables_link').attr('href', 'consumer_goods_tables.html?discount_card_id=' + discount_card_id);
         d3.select('#consumer_cheques_link').attr('href', 'consumer_cheques.html?discount_card_id=' + discount_card_id);
-      });
+        d3.select('#consumer_groups_link').attr('href', 'consumer_groups.html?discount_card_id=' + discount_card_id);
+        d3.select('#consumer_S_LG_recs').attr('href', 'consumer_S_LG_recs.html?discount_card_id=' + discount_card_id);
+      });cost
     }
     function getParameterByName(name) {
       name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -343,8 +343,8 @@
     }
     discount_card_id = getParameterByName('discount_card_id')
     //discount_card_id = '2775023854760'
-    fill_table('table-consumer-goods-count', "hard_query?query='select good_count, good_id, good_name, good_group, avg_cost_quant as approx_cost, last_date from test.consumer_goods_count where discount_card_id='" + discount_card_id + "' '");
-    fill_table('table-consumer-goods-recs', "hard_query?query='select rank as good_rank, good_id, good_name, good_group, avg_cost_quant as approx_cost, algorithm from test.consumer_goods_recs where discount_card_id='" + discount_card_id + "' '");
+    fill_table('table-consumer-goods-count', "hard_query?query='select good_count, good_id, good_name, good_group, last_date from test.consumer_goods_count where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
+    fill_table('table-consumer-goods-recs', "hard_query?query='select rank as good_rank, good_id, good_name, good_group, approx_cost, algorithm from test.consumer_goods_recs where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
     fill_table('table-random-discount-cards', "hard_query?query='select * from test.consumer_count order by rand() limit 20 ' ");
   </script>
   <script type="text/javascript">

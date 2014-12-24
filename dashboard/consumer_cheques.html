@@ -88,90 +88,18 @@
                         <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <!--<li>-->
-                            <!--<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>-->
-                            <!--<ul class="nav nav-second-level">-->
-                                <!--<li>-->
-                                    <!--<a href="flot.html">Flot Charts</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="morris.html">Morris.js Charts</a>-->
-                                <!--</li>-->
-                            <!--</ul>-->
-                            <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
-                        <!--</li>-->
                         <li>
                             <a class="active" id="consumer_goods_tables_link" href="consumer_goods_tables.html"><i class="fa fa-table fa-fw"></i> Consumer goods tables</a>
                         </li>
                         <li>
                             <a class="active" id="consumer_cheques_link" href="consumer_cheques.html"><i class="fa fa-table fa-fw"></i> Consumer cheques</a>
                         </li>
-                        <!--<li>-->
-                            <!--<a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>-->
-                            <!--<ul class="nav nav-second-level">-->
-                                <!--<li>-->
-                                    <!--<a href="panels-wells.html">Panels and Wells</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="buttons.html">Buttons</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="notifications.html">Notifications</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="typography.html">Typography</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="grid.html">Grid</a>-->
-                                <!--</li>-->
-                            <!--</ul>-->
-                            <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>-->
-                            <!--<ul class="nav nav-second-level">-->
-                                <!--<li>-->
-                                    <!--<a href="#">Second Level Item</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="#">Second Level Item</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="#">Third Level <span class="fa arrow"></span></a>-->
-                                    <!--<ul class="nav nav-third-level">-->
-                                        <!--<li>-->
-                                            <!--<a href="#">Third Level Item</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<a href="#">Third Level Item</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<a href="#">Third Level Item</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<a href="#">Third Level Item</a>-->
-                                        <!--</li>-->
-                                    <!--</ul>-->
-                                    <!--&lt;!&ndash; /.nav-third-level &ndash;&gt;-->
-                                <!--</li>-->
-                            <!--</ul>-->
-                            <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>-->
-                            <!--<ul class="nav nav-second-level">-->
-                                <!--<li>-->
-                                    <!--<a href="blank.html">Blank Page</a>-->
-                                <!--</li>-->
-                                <!--<li>-->
-                                    <!--<a href="login.html">Login Page</a>-->
-                                <!--</li>-->
-                            <!--</ul>-->
-                            <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
-                        <!--</li>-->
+                        <li>
+                            <a class="active" id="consumer_groups_link" href="consumer_groups.html"><i class="fa fa-table fa-fw"></i> Consumer groups recs</a>
+                        </li>
+                        <li>
+                            <a class="active" id="consumer_S_LG_recs" href="consumer_S_LG_recs.html"><i class="fa fa-table fa-fw"></i> Consumer Simplate and Printer recs</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -376,6 +304,8 @@
         d3.select('.page-header').text("Consumer (" + discount_card_id + ") cheques");
         d3.select('#consumer_goods_tables_link').attr('href', 'consumer_goods_tables.html?discount_card_id=' + discount_card_id);
         d3.select('#consumer_cheques_link').attr('href', 'consumer_cheques.html?discount_card_id=' + discount_card_id);
+        d3.select('#consumer_groups_link').attr('href', 'consumer_groups.html?discount_card_id=' + discount_card_id);
+        d3.select('#consumer_S_LG_recs').attr('href', 'consumer_S_LG_recs.html?discount_card_id=' + discount_card_id);
     </script>
 </body>
 
