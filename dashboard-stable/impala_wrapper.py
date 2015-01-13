@@ -2,6 +2,7 @@ __author__ = 'senov'
 
 from impala.dbapi import connect
 import json
+from collections import defaultdict
 
 
 _discount_card_id = '2775087827816'
@@ -15,6 +16,59 @@ _mssql2int_type_dict = {
 
 def get_internal_type_from_mssql_type(mssql_type):
     return _mssql2int_type_dict[mssql_type]
+
+
+def get_histogram_stacked(table_name, x_axis_column_name, y_axis_column_name, series_column_name=None):
+    conn = connect(host='node1.allende.bigkore.com', port=21050)
+    cursor = conn.cursor()
+    query = "select %s, %s, %s from %s" % (x_axis_column_name, y_axis_column_name, series_column_name, table_name)
+    print query
+    cursor.execute(query)
+    results = cursor.fetchall()
+    x_axis = sorted(list(set([r[0] for r in results])))
+    series_dict = defaultdict(lambda: [])
+    for r in results:
+        series_dict[r[2]].append([r[0], float(r[1])])
+    series = []
+    for k, xy_values in series_dict.items():
+        x_values = set([x[0] for x in xy_values])
+        for x in x_axis:
+            if x not in x_values:
+                xy_values.append([x, 0])
+
+        y_values = [xy[1] for xy in sorted(xy_values, key=lambda xy: xy[0])]
+        series.append({
+            'name': k,
+            'data': y_values
+        })
+
+    return json.dumps({
+        'series': series,
+        'x_axis': x_axis
+    })
+
+
+def get_histogram_single(table_name, x_axis_column_name, y_axis_column_name):
+    conn = connect(host='node1.allende.bigkore.com', port=21050)
+    cursor = conn.cursor()
+    query = "select %s, %s from %s" % (x_axis_column_name, y_axis_column_name, table_name)
+    print query
+    cursor.execute(query)
+    results = cursor.fetchall()
+    xy_values = []
+    for r in results:
+        xy_values.append([r[0], float(r[1])])
+    xy_values = sorted(xy_values, key=lambda xy: xy[0])
+    x_axis = [xy[0] for xy in xy_values]
+    y_values = [xy[1] for xy in xy_values]
+    series = [{'name': '', 'data': y_values}]
+    return json.dumps({
+        'series': series,
+        'x_axis': x_axis
+    })
+
+
+print get_histogram_stacked('ulybka_radugi.S_recs_aggr_info_basket_offer', 'place', 'cnt', 'source')
 
 
 def get_consumer_basket(discount_card_id=_discount_card_id, table_name=_table_name, query=None):

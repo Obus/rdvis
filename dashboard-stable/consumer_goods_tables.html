@@ -91,6 +91,9 @@
                         <li>
                             <a class="active" id="consumer_groups_link" href="consumer_groups.html"><i class="fa fa-table fa-fw"></i> Consumer groups recs</a>
                         </li>
+                        <li>
+                            <a class="active" id="consumer_S_LG_recs" href="consumer_S_LG_recs.html"><i class="fa fa-table fa-fw"></i> Consumer Simplate and Printer recs</a>
+                        </li>
                         <!--<li>-->
                             <!--<a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>-->
                         <!--</li>-->
@@ -329,7 +332,8 @@
         d3.select('#consumer_goods_tables_link').attr('href', 'consumer_goods_tables.html?discount_card_id=' + discount_card_id);
         d3.select('#consumer_cheques_link').attr('href', 'consumer_cheques.html?discount_card_id=' + discount_card_id);
         d3.select('#consumer_groups_link').attr('href', 'consumer_groups.html?discount_card_id=' + discount_card_id);
-      });
+        d3.select('#consumer_S_LG_recs').attr('href', 'consumer_S_LG_recs.html?discount_card_id=' + discount_card_id);
+      });cost
     }
     function getParameterByName(name) {
       name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -339,7 +343,7 @@
     }
     discount_card_id = getParameterByName('discount_card_id')
     //discount_card_id = '2775023854760'
-    fill_table('table-consumer-goods-count', "hard_query?query='select good_count, good_id, good_name, good_group, approx_cost, last_date from test.consumer_goods_count where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
+    fill_table('table-consumer-goods-count', "hard_query?query='select good_count, good_id, good_name, good_group, last_date from test.consumer_goods_count where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
     fill_table('table-consumer-goods-recs', "hard_query?query='select rank as good_rank, good_id, good_name, good_group, approx_cost, algorithm from test.consumer_goods_recs where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
     fill_table('table-random-discount-cards', "hard_query?query='select * from test.consumer_count order by rand() limit 20 ' ");
   </script>

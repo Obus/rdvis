@@ -34,6 +34,26 @@ class MyHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             params_string = self.path.replace("/consumer_date_group_purchases?", "")
             param_dict = http_params_to_dict(params_string)
             self.wfile.write(impala_wrapper.get_consumer_group_cheques(discount_card_id=param_dict['discount_card_id']))
+        elif self.path.startswith("/histogram?"):
+            params_string = self.path.replace("/histogram?", "")
+            param_dict = http_params_to_dict(params_string)
+            if 'series_column_name' in param_dict:
+                self.wfile.write(
+                    impala_wrapper.get_histogram_stacked(
+                        table_name=param_dict['table_name'],
+                        x_axis_column_name=param_dict['x_axis_column_name'],
+                        y_axis_column_name=param_dict['y_axis_column_name'],
+                        series_column_name=param_dict['series_column_name']
+                    )
+                )
+            else:
+                self.wfile.write(
+                    impala_wrapper.get_histogram_single(
+                        table_name=param_dict['table_name'],
+                        x_axis_column_name=param_dict['x_axis_column_name'],
+                        y_axis_column_name=param_dict['y_axis_column_name']
+                    )
+                )
         elif self.path.startswith("/hard_query?"):
             params_string = self.path.replace("/hard_query?", "")
             # param_dict = http_params_to_dict(params_string)
