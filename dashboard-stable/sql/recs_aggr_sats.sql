@@ -44,6 +44,7 @@ FROM
 GROUP BY place, source
 ;
 
+-- ######################################################################|
 
 DROP TABLE IF EXISTS tmp_good_id_group23;
 CREATE TABLE tmp_good_id_group23 AS
@@ -67,7 +68,50 @@ GROUP BY group23
 ;
 
 DROP TABLE IF EXISTS S_recs_periodicity;
-CREATE TABLE S_recs_periodicity ()
+CREATE TABLE S_recs_periodicity (place int, periodicity string, val float);
+
+INSERT INTO TABLE S_recs_periodicity
+SELECT place, periodicity_weeks, count(*) as val
+FROM
+(
+  SELECT good_id, bk_rank(discount_card_id) as place
+  FROM
+  (
+    SELECT
+        consumer_id as discount_card_id,
+        product_id as good_id,
+        rank
+    FROM Coupons_List_S_recs_hive_filtered
+    DISTRIBUTE BY discount_card_id
+    SORT BY discount_card_id, rank DESC
+  ) t
+) t
+JOIN tmp_good_id_group23 gg
+  ON gg.good_id = t.good_id
+JOIN
+(
+  SELECT group23, concat(cast(floor(avg_periodicity / 7) as string), '-', cast(ceil(avg_periodicity / 7) as string), 'w') as periodicity_weeks
+  FROM tmp_group23_periodicity
+) gp
+ON gg.group23 = gp.group23
+GROUP BY place, periodicity_weeks
+;
+
+INSERT INTO TABLE S_recs_periodicity
+SELECT -1, periodicity_weeks, count(*) as val
+FROM coupons_list_product_ids t
+JOIN tmp_good_id_group23 gg
+  ON gg.good_id = t.product_id
+JOIN
+(
+  SELECT group23, concat(cast(floor(avg_periodicity / 7) as string), '-', cast(ceil(avg_periodicity / 7) as string), 'w') as periodicity_weeks
+  FROM tmp_group23_periodicity
+) gp
+ON gg.group23 = gp.group23
+GROUP BY periodicity_weeks
+;
+
+
 
 -- ######################################################################|
 DROP TABLE IF EXISTS coupons_year_month_stats;

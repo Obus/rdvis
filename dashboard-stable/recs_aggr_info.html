@@ -126,6 +126,15 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
+                        <div id="S_periodicity_hist"></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="LG_periodicity_hist"></div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div id="coupons_monthly_hist"></div>
                     </div>
                     <div class="col-lg-6">
@@ -223,6 +232,12 @@
       });
       $.getJSON('histogram?table_name=ulybka_radugi.LG_recs_aggr_info_basket_offer&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
         basket_offers_hist('Printer basket vs offers in recommendations', '#LG_basket_offer_hist', json);
+      });
+      $.getJSON('histogram?table_name=ulybka_radugi.S_recs_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
+        basket_offers_hist('Simplate recommendations periodicity', '#S_periodicity_hist', json);
+      });
+      $.getJSON('histogram?table_name=ulybka_radugi.LG_recs_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
+        basket_offers_hist('Printer recommendations periodicity', '#LG_periodicity_hist', json);
       });
       $.getJSON('histogram?table_name=ulybka_radugi.coupons_year_month_stats&x_axis_column_name=year_month&y_axis_column_name=val&series_column_name=stat_name', function (json) {
         basket_offers_hist('Coupons monthly stats', '#coupons_monthly_hist', json);

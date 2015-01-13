@@ -30,7 +30,7 @@ def get_histogram_stacked(table_name, x_axis_column_name, y_axis_column_name, se
     for r in results:
         series_dict[r[2]].append([r[0], float(r[1])])
     series = []
-    for k, xy_values in series_dict.items():
+    for k, xy_values in sorted(series_dict.items(), key=lambda kv: kv[0]):
         x_values = set([x[0] for x in xy_values])
         for x in x_axis:
             if x not in x_values:
