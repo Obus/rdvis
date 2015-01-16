@@ -4,6 +4,7 @@ import SimpleHTTPServer
 import urlparse
 import impala_wrapper
 import urllib
+import urlparse
 
 _PORT = 8000
 
@@ -22,21 +23,18 @@ class MyHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         print self.path
+        raw_param_dict = urlparse.parse_qs(urlparse.urlparse(self.path).query)
+        param_dict = {}
+        for k, v in raw_param_dict.items():
+            param_dict[k] = v[0]
+
         if self.path.startswith("/consumer_recs?"):
-            params_string = self.path.replace("/consumer_recs?", "")
-            param_dict = http_params_to_dict(params_string)
             self.wfile.write(impala_wrapper.get_consumer_basket(discount_card_id=param_dict['discount_card_id']))
         elif self.path.startswith("/consumer_date_purchases?"):
-            params_string = self.path.replace("/consumer_date_purchases?", "")
-            param_dict = http_params_to_dict(params_string)
             self.wfile.write(impala_wrapper.get_consumer_cheques(discount_card_id=param_dict['discount_card_id']))
         elif self.path.startswith("/consumer_date_group_purchases?"):
-            params_string = self.path.replace("/consumer_date_group_purchases?", "")
-            param_dict = http_params_to_dict(params_string)
             self.wfile.write(impala_wrapper.get_consumer_group_cheques(discount_card_id=param_dict['discount_card_id']))
         elif self.path.startswith("/histogram?"):
-            params_string = self.path.replace("/histogram?", "")
-            param_dict = http_params_to_dict(params_string)
             if 'series_column_name' in param_dict:
                 self.wfile.write(
                     impala_wrapper.get_histogram_stacked(
@@ -55,9 +53,10 @@ class MyHttpRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
                     )
                 )
         elif self.path.startswith("/hard_query?"):
-            params_string = self.path.replace("/hard_query?", "")
+            # params_string = self.path.replace("/hard_query?", "")
             # param_dict = http_params_to_dict(params_string)
-            query = params_string.replace('query=', '')
+            # query = params_string.replace('query=', '')
+            query = param_dict['query']
             query = urllib.unquote(query)
             query = query[1:-1]
             self.wfile.write(impala_wrapper.get_consumer_basket(query=query))

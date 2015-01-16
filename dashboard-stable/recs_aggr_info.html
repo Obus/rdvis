@@ -89,16 +89,19 @@
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a class="active" id="consumer_goods_tables_link" href="consumer_goods_tables.html"><i class="fa fa-table fa-fw"></i> Consumer goods tables</a>
+                            <a id="consumer_goods_tables_link" href="consumer_goods_tables.html"><i class="fa fa-table fa-fw"></i> Consumer goods tables</a>
                         </li>
                         <li>
-                            <a class="active" id="consumer_cheques_link" href="consumer_cheques.html"><i class="fa fa-table fa-fw"></i> Consumer cheques</a>
+                            <a id="consumer_cheques_link" href="consumer_cheques.html"><i class="fa fa-table fa-fw"></i> Consumer cheques</a>
                         </li>
                         <li>
-                            <a class="active" id="consumer_groups_link" href="consumer_groups.html"><i class="fa fa-table fa-fw"></i> Consumer groups recs</a>
+                            <a id="consumer_groups_link" href="consumer_groups.html"><i class="fa fa-table fa-fw"></i> Consumer groups recs</a>
                         </li>
                         <li>
-                            <a class="active" id="consumer_S_LG_recs" href="consumer_S_LG_recs.html"><i class="fa fa-table fa-fw"></i> Consumer Simplate and Printer recs</a>
+                            <a id="consumer_S_LG_recs" href="consumer_S_LG_recs.html"><i class="fa fa-table fa-fw"></i> Consumer Simplate and Printer recs</a>
+                        </li>
+                        <li>
+                            <a сlass="active" id="recs_aggr_info" href="recs_aggr_info.html"><i class="fa fa-table fa-fw"></i>Recommendations 'offline' statistics</a>
                         </li>
                     </ul>
                 </div>
@@ -111,8 +114,48 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Recommendations aggregation info</h1>
+                        <h1 class="page-header">Recommendations 'offline' statistics</h1>
                     </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+
+                <div class="row">
+                  <div class="col-lg-12">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                               December
+                          </div>
+                      </div>
+                  </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="LG_december_basket_offer_hist"></div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="LG_december_periodicity_hist"></div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+
+                <div class="row">
+                  <div class="col-lg-12">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                               January
+                          </div>
+                      </div>
+                  </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <div class="row">
@@ -133,12 +176,23 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
+
+                <div class="row">
+                  <div class="col-lg-12">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                               Timeless
+                          </div>
+                      </div>
+                  </div>
+                    <!-- /.col-lg-12 -->
+                </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div id="coupons_monthly_hist"></div>
+                        <div id="coupons_before_in_month_purchases_hist"></div>
                     </div>
                     <div class="col-lg-6">
-                        <div id="noname_1"></div>
+                        <div id="coupons_goods_groups_count_hist"></div>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -227,6 +281,12 @@
         });
     }
     $(function () {
+      $.getJSON('histogram?table_name=ulybka_radugi.LG_december_recs_aggr_info_basket_offer&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
+        basket_offers_hist("Printer basket vs offers in recommendations", '#LG_december_basket_offer_hist', json);
+      });
+      $.getJSON('histogram?table_name=ulybka_radugi.LG_december_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
+        basket_offers_hist('Printer recommendations periodicity', '#LG_december_periodicity_hist', json);
+      });
       $.getJSON('histogram?table_name=ulybka_radugi.S_recs_aggr_info_basket_offer&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
         basket_offers_hist('Simplate basket vs offers in recommendations', '#S_basket_offer_hist', json);
       });
@@ -240,16 +300,18 @@
         basket_offers_hist('Printer recommendations periodicity', '#LG_periodicity_hist', json);
       });
       $.getJSON('histogram?table_name=ulybka_radugi.coupons_year_month_stats&x_axis_column_name=year_month&y_axis_column_name=val&series_column_name=stat_name', function (json) {
-        basket_offers_hist('Coupons monthly stats', '#coupons_monthly_hist', json);
+        basket_offers_hist('Coupons goods this & previous month purchases', '#coupons_before_in_month_purchases_hist', json);
+      });
+      $.getJSON('histogram?table_name=ulybka_radugi.coupons_goods_count&x_axis_column_name=year_month&y_axis_column_name=val&series_column_name=stat_name', function (json) {
+        basket_offers_hist('Coupons goods & groups count', '#coupons_goods_groups_count_hist', json);
       });
     });
 
-
-
-    var isArray = Array.isArray || function(arr) {
-          return toString.call(arr) == '[object Array]';
-    };
-
+    var discount_card_id = '2775294926708'
+    d3.select('#consumer_goods_tables_link').attr('href', 'consumer_goods_tables.html?discount_card_id=' + discount_card_id);
+    d3.select('#consumer_cheques_link').attr('href', 'consumer_cheques.html?discount_card_id=' + discount_card_id);
+    d3.select('#consumer_groups_link').attr('href', 'consumer_groups.html?discount_card_id=' + discount_card_id);
+    d3.select('#consumer_S_LG_recs').attr('href', 'consumer_S_LG_recs.html?discount_card_id=' + discount_card_id);
   </script>
   <script type="text/javascript">
   </script>
@@ -269,7 +331,17 @@
 
 
 
-<!--alter table Cheques add partition(cdate='2014-10-28');-->
-<!--alter table Cheques add partition(cdate='2014-11-21');-->
-<!--alter table Cheques add partition(cdate='2014-12-02');-->
-<!--alter table Cheques add partition(cdate='2014-12-15');-->
+<!--alter table Transactions add partition(cdate='2014-10-28');-->
+<!--alter table Transactions add partition(cdate='2014-11-21');-->
+<!--alter table Transactions add partition(cdate='2014-12-02');-->
+<!--alter table Transactions add partition(cdate='2014-12-15');-->
+
+
+
+<!--alter table Goods add partition(cdate='2014-07-30');-->
+<!--alter table Goods add partition(cdate='2014-07-31');-->
+<!--alter table Goods add partition(cdate='2014-10-28');-->
+<!--alter table Goods add partition(cdate='2014-11-21');-->
+<!--alter table Goods add partition(cdate='2014-12-02');-->
+<!--alter table Goods add partition(cdate='2014-12-15');-->
+
