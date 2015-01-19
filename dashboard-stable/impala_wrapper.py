@@ -10,7 +10,8 @@ _table_name = 'consumer_top_goods'
 _mssql2int_type_dict = {
     'STRING_TYPE': 'string',
     'BIGINT_TYPE': 'numeric',
-    'DOUBLE_TYPE': 'numeric'
+    'DOUBLE_TYPE': 'numeric',
+    'FLOAT_TYPE': 'numeric'
 }
 
 

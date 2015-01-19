@@ -111,7 +111,7 @@
 
         <!-- Page Content -->
         <div id="page-wrapper">
-            <div class="container-fluid">
+            <div id="dashboard-container" class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Recommendations 'offline' statistics</h1>
@@ -120,62 +120,62 @@
                 </div>
 
 
-                <div class="row">
-                  <div class="col-lg-12">
-                      <div class="panel panel-default">
-                          <div class="panel-heading">
-                               December
-                          </div>
-                      </div>
-                  </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                    </div>
-                    <div class="col-lg-6">
-                        <div id="LG_december_basket_offer_hist"></div>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                    </div>
-                    <div class="col-lg-6">
-                        <div id="LG_december_periodicity_hist"></div>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
+                <!--<div class="row">-->
+                  <!--<div class="col-lg-12">-->
+                      <!--<div class="panel panel-default">-->
+                          <!--<div class="panel-heading">-->
+                               <!--December-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+                    <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="col-lg-6">-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<div id="LG_december_basket_offer_hist"></div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="col-lg-6">-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<div id="LG_december_periodicity_hist"></div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+                <!--</div>-->
 
 
-                <div class="row">
-                  <div class="col-lg-12">
-                      <div class="panel panel-default">
-                          <div class="panel-heading">
-                               January
-                          </div>
-                      </div>
-                  </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div id="S_basket_offer_hist"></div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div id="LG_basket_offer_hist"></div>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div id="S_periodicity_hist"></div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div id="LG_periodicity_hist"></div>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
+                <!--<div class="row">-->
+                  <!--<div class="col-lg-12">-->
+                      <!--<div class="panel panel-default">-->
+                          <!--<div class="panel-heading">-->
+                               <!--January-->
+                          <!--</div>-->
+                      <!--</div>-->
+                  <!--</div>-->
+                    <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<div id="S_basket_offer_hist"></div>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<div id="LG_basket_offer_hist"></div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<div id="S_periodicity_hist"></div>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<div id="LG_periodicity_hist"></div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+                <!--</div>-->
 
                 <div class="row">
                   <div class="col-lg-12">
@@ -280,25 +280,53 @@
           series: json.series
         });
     }
+
+    function coupons_S_LG_recs_dash_element(r_timestamp, r_date) {
+      var dash_element_structure =
+                '<div class="row">' +
+                  '<div class="col-lg-12">' +
+                      '<div class="panel panel-default">' +
+                          '<div class="panel-heading">' + r_date + '</div>' +
+                      '</div>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                    '<div class="col-lg-6">' +
+                        '<div id="S_basket_offer_hist_' + r_timestamp + '"></div>' +
+                    '</div>' +
+                    '<div class="col-lg-6">' +
+                        '<div id="LG_basket_offer_hist_' + r_timestamp + '"></div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                    '<div class="col-lg-6">' +
+                        '<div id="S_periodicity_hist_' + r_timestamp + '"></div>' +
+                    '</div>' +
+                    '<div class="col-lg-6">' +
+                        '<div id="LG_periodicity_hist_' + r_timestamp + '"></div>' +
+                    '</div>' +
+                '</div>'
+
+      $(dash_element_structure).appendTo('#dashboard-container');
+
+
+      $(function () {
+        $.getJSON('histogram?table_name=(SELECT * FROM ulybka_radugi.coupons_4_S_aggr_info WHERE ctimestamp="' + r_timestamp + '" AND place <= 11) t&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=rec_version', function (json) {
+          basket_offers_hist('Simplate basket vs offers in recommendations', '#S_basket_offer_hist_' + r_timestamp, json);
+        });
+        $.getJSON('histogram?table_name=(SELECT * FROM ulybka_radugi.coupons_4_LG_aggr_info WHERE ctimestamp="' + r_timestamp + '" AND place <= 30) t&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=rec_version', function (json) {
+          basket_offers_hist('Printer basket vs offers in recommendations', '#LG_basket_offer_hist_' + r_timestamp, json);
+        });
+        $.getJSON('histogram?table_name=(SELECT * FROM ulybka_radugi.coupons_4_S_goods_periodicity WHERE ctimestamp="' + r_timestamp + '" AND place <= 11) t&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
+          basket_offers_hist('Simplate recommendations periodicity', '#S_periodicity_hist_' + r_timestamp, json);
+        });
+        $.getJSON('histogram?table_name=(SELECT * FROM ulybka_radugi.coupons_4_LG_goods_periodicity WHERE ctimestamp="' + r_timestamp + '"  AND place <= 30) t&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
+          basket_offers_hist('Printer recommendations periodicity', '#LG_periodicity_hist_' + r_timestamp, json);
+        });
+      });
+    }
+
     $(function () {
-      $.getJSON('histogram?table_name=ulybka_radugi.LG_december_recs_aggr_info_basket_offer&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
-        basket_offers_hist("Printer basket vs offers in recommendations", '#LG_december_basket_offer_hist', json);
-      });
-      $.getJSON('histogram?table_name=ulybka_radugi.LG_december_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
-        basket_offers_hist('Printer recommendations periodicity', '#LG_december_periodicity_hist', json);
-      });
-      $.getJSON('histogram?table_name=ulybka_radugi.S_recs_aggr_info_basket_offer&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
-        basket_offers_hist('Simplate basket vs offers in recommendations', '#S_basket_offer_hist', json);
-      });
-      $.getJSON('histogram?table_name=ulybka_radugi.LG_recs_aggr_info_basket_offer&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
-        basket_offers_hist('Printer basket vs offers in recommendations', '#LG_basket_offer_hist', json);
-      });
-      $.getJSON('histogram?table_name=ulybka_radugi.S_recs_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
-        basket_offers_hist('Simplate recommendations periodicity', '#S_periodicity_hist', json);
-      });
-      $.getJSON('histogram?table_name=ulybka_radugi.LG_recs_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
-        basket_offers_hist('Printer recommendations periodicity', '#LG_periodicity_hist', json);
-      });
       $.getJSON('histogram?table_name=ulybka_radugi.coupons_year_month_stats&x_axis_column_name=year_month&y_axis_column_name=val&series_column_name=stat_name', function (json) {
         basket_offers_hist('Coupons goods this & previous month purchases', '#coupons_before_in_month_purchases_hist', json);
       });
@@ -306,6 +334,42 @@
         basket_offers_hist('Coupons goods & groups count', '#coupons_goods_groups_count_hist', json);
       });
     });
+
+    var ctimestamp_list = [1421321302, 1421316233, 1417716790];
+    ctimestamp_list = ctimestamp_list.sort().reverse();
+    var ctimestamp_pretty_list = ctimestamp_list.map(function (t) {
+      var d = new Date(t * 1000);
+      return [t, d.toDateString()]
+    });
+
+    for (var i = 0; i < ctimestamp_pretty_list.length; ++i) {
+      var td = ctimestamp_pretty_list[i];
+      coupons_S_LG_recs_dash_element(td[0], td[1]);
+    }
+//
+//    $(function () {
+//      $.getJSON('histogram?table_name=(SELECT * FROM ulybka_radugi.LG_december_recs_aggr_info_basket_offer) t&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
+//        basket_offers_hist("Printer basket vs offers in recommendations", '#LG_december_basket_offer_hist', json);
+//      });
+//      $.getJSON('histogram?table_name=ulybka_radugi.LG_december_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
+//        basket_offers_hist('Printer recommendations periodicity', '#LG_december_periodicity_hist', json);
+//      });
+//    });
+//    $(function () {
+//      $.getJSON('histogram?table_name=ulybka_radugi.S_recs_aggr_info_basket_offer&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
+//        basket_offers_hist('Simplate basket vs offers in recommendations', '#S_basket_offer_hist', json);
+//      });
+//      $.getJSON('histogram?table_name=ulybka_radugi.LG_recs_aggr_info_basket_offer&x_axis_column_name=place&y_axis_column_name=cnt&series_column_name=source', function (json) {
+//        basket_offers_hist('Printer basket vs offers in recommendations', '#LG_basket_offer_hist', json);
+//      });
+//      $.getJSON('histogram?table_name=ulybka_radugi.S_recs_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
+//        basket_offers_hist('Simplate recommendations periodicity', '#S_periodicity_hist', json);
+//      });
+//      $.getJSON('histogram?table_name=ulybka_radugi.LG_recs_periodicity&x_axis_column_name=place&y_axis_column_name=val&series_column_name=periodicity', function (json) {
+//        basket_offers_hist('Printer recommendations periodicity', '#LG_periodicity_hist', json);
+//      });
+//    });
+
 
     var discount_card_id = '2775294926708'
     d3.select('#consumer_goods_tables_link').attr('href', 'consumer_goods_tables.html?discount_card_id=' + discount_card_id);

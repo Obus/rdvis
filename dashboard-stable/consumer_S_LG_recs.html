@@ -170,6 +170,30 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
+                            Consumer all goods (not only coupons) recs
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive" id="table-consumer-goods-all-recs"> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Consumer all goods (not only coupons) recs with group alternation
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive" id="table-consumer-goods-all-recs-groups-alt"> </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <div class="row">
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
                             Consumer Printer recs
                         </div>
                         <div class="panel-body">
@@ -320,11 +344,6 @@
           }
           return c;
         });
-        d3.select('.page-header').text("Consumer (" + discount_card_id + ") goods recs and counts");
-        d3.select('#consumer_goods_tables_link').attr('href', 'consumer_goods_tables.html?discount_card_id=' + discount_card_id);
-        d3.select('#consumer_cheques_link').attr('href', 'consumer_cheques.html?discount_card_id=' + discount_card_id);
-        d3.select('#consumer_groups_link').attr('href', 'consumer_groups.html?discount_card_id=' + discount_card_id);
-        d3.select('#consumer_S_LG_recs').attr('href', 'consumer_S_LG_recs.html?discount_card_id=' + discount_card_id);
       });
     }
     function getParameterByName(name) {
@@ -333,12 +352,23 @@
           results = regex.exec(location.search);
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
-    discount_card_id = getParameterByName('discount_card_id')
+    discount_card_id = getParameterByName('discount_card_id');
+
+
+    d3.select('.page-header').text("Consumer (" + discount_card_id + ") goods recs and counts");
+    d3.select('#consumer_goods_tables_link').attr('href', 'consumer_goods_tables.html?discount_card_id=' + discount_card_id);
+    d3.select('#consumer_cheques_link').attr('href', 'consumer_cheques.html?discount_card_id=' + discount_card_id);
+    d3.select('#consumer_groups_link').attr('href', 'consumer_groups.html?discount_card_id=' + discount_card_id);
+    d3.select('#consumer_S_LG_recs').attr('href', 'consumer_S_LG_recs.html?discount_card_id=' + discount_card_id);
     //discount_card_id = '2775023854760'
+    fill_table('table-consumer-goods-all-recs-groups-alt', "hard_query?query='select rank as good_rank, good_name, round(cost) as cost, bought_already from ulybka_radugi.tmp_consumer_lda_offers_all_goods_groups_alt where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
+    fill_table('table-consumer-goods-all-recs', "hard_query?query='select rank as good_rank, good_name, round(cost) as cost, bought_already from ulybka_radugi.tmp_consumer_lda_offers_all_goods where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
     fill_table('table-consumer-goods-count', "hard_query?query='select good_count, good_id, good_name, good_group, last_date from ulybka_radugi.consumer_goods_count where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
     fill_table('table-consumer-goods-LG-recs', "hard_query?query='select rank as good_rank, good_name, round(cost) as cost, bought_already from ulybka_radugi.consumer_goods_LG_recs where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
     fill_table('table-consumer-goods-S-recs', "hard_query?query='select rank as good_rank, good_name, round(cost) as cost, bought_already from ulybka_radugi.consumer_goods_S_recs where discount_card_id='" + discount_card_id + "' '", [0, "desc"]);
     fill_table('table-random-discount-cards', "hard_query?query='select * from test.consumer_count order by rand() limit 20 ' ");
+
+
   </script>
   <script type="text/javascript">
   </script>
